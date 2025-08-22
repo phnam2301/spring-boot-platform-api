@@ -13,11 +13,11 @@ public class PersistenceService {
     private final MessageRepo messageRepo;
 
     public Mono<Message> persist(ChatMessage msg) {
-        Message e = new Message();
-        e.setSender(msg.sender());
-        e.setContent(msg.content());
-        e.setChannel(msg.channel());
-        e.setTimestamp(msg.timestamp());
-        return messageRepo.save(e);
+        return messageRepo.save(Message.builder()
+                .sender(msg.sender())
+                .content(msg.content())
+                .channel(msg.channel())
+                .timestamp(msg.timestamp())
+                .build());
     }
 }
